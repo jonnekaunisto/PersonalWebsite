@@ -1,4 +1,2 @@
 # PersonalWebsite
-My website
-
-Hosted at jonnekaunisto.com
+My website hosted at jonnekaunisto.com
