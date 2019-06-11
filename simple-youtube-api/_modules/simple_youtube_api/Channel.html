@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simple_youtube_api.Channel &mdash; Simple YouTube API 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Simple YouTube API
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started.html">Getting started with Simple YouTube API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ref/ref.html">Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Simple YouTube API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>simple_youtube_api.Channel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for simple_youtube_api.Channel</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">simple_youtube_api.LocalVideo</span> <span class="k">import</span> <span class="n">LocalVideo</span>
+<span class="kn">from</span> <span class="nn">simple_youtube_api.YouTubeVideo</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>
+<span class="kn">from</span> <span class="nn">simple_youtube_api</span> <span class="k">import</span> <span class="n">youtube_api</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">http.client</span>
+<span class="kn">import</span> <span class="nn">httplib2</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">googleapiclient.discovery</span> <span class="k">import</span> <span class="n">build</span>
+<span class="kn">from</span> <span class="nn">googleapiclient.errors</span> <span class="k">import</span> <span class="n">HttpError</span>
+<span class="kn">from</span> <span class="nn">googleapiclient.http</span> <span class="k">import</span> <span class="n">MediaFileUpload</span>
+
+<span class="kn">from</span> <span class="nn">oauth2client.client</span> <span class="k">import</span> <span class="n">flow_from_clientsecrets</span>
+<span class="kn">from</span> <span class="nn">oauth2client.tools</span> <span class="k">import</span> <span class="n">run_flow</span>
+<span class="kn">from</span> <span class="nn">oauth2client.file</span> <span class="k">import</span> <span class="n">Storage</span>
+
+
+<span class="n">SCOPE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.googleapis.com/auth/youtube&#39;</span><span class="p">]</span>
+<span class="n">API_SERVICE_NAME</span> <span class="o">=</span> <span class="s1">&#39;youtube&#39;</span>
+<span class="n">API_VERSION</span> <span class="o">=</span> <span class="s1">&#39;v3&#39;</span>
+
+
+<span class="c1"># add functions</span>
+<div class="viewcode-block" id="Channel"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel">[docs]</a><span class="k">class</span> <span class="nc">Channel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Class for authorizing changes to channel</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    -----------</span>
+
+<span class="sd">    channel</span>
+<span class="sd">      login object to the channel</span>
+<span class="sd">     &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># TODO: add scopes as option</span>
+<div class="viewcode-block" id="Channel.login"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_secret_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">storage_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Logs into the channel with credentials</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">STORAGE</span> <span class="o">=</span> <span class="n">Storage</span><span class="p">(</span><span class="n">storage_path</span><span class="p">)</span>
+        <span class="n">credentials</span> <span class="o">=</span> <span class="n">STORAGE</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">credentials</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">credentials</span><span class="o">.</span><span class="n">invalid</span><span class="p">:</span>
+            <span class="n">flow</span> <span class="o">=</span> <span class="n">flow_from_clientsecrets</span><span class="p">(</span><span class="n">client_secret_path</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">SCOPE</span><span class="p">)</span>
+            <span class="n">http</span> <span class="o">=</span> <span class="n">httplib2</span><span class="o">.</span><span class="n">Http</span><span class="p">()</span>
+            <span class="n">credentials</span> <span class="o">=</span> <span class="n">run_flow</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">STORAGE</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="n">http</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="n">API_SERVICE_NAME</span><span class="p">,</span> <span class="n">API_VERSION</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">credentials</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Channel.get_login"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel.get_login">[docs]</a>    <span class="k">def</span> <span class="nf">get_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Returns the login object</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span></div>
+
+<div class="viewcode-block" id="Channel.fetch_uploads"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel.fetch_uploads">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_uploads</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">YouTubeVideo</span><span class="p">]:</span>
+        <span class="sd">&#39;&#39;&#39; Fetches uploaded videos from channel</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">channels</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+            <span class="n">mine</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">part</span><span class="o">=</span><span class="s1">&#39;contentDetails&#39;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">uploads_playlist_id</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;contentDetails&#39;</span><span class="p">][</span><span class="s1">&#39;relatedPlaylists&#39;</span><span class="p">][</span><span class="s1">&#39;uploads&#39;</span><span class="p">]</span>
+
+        <span class="n">playlistitems_list_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+            <span class="n">playlistId</span><span class="o">=</span><span class="n">uploads_playlist_id</span><span class="p">,</span>
+            <span class="n">part</span><span class="o">=</span><span class="s1">&#39;snippet&#39;</span><span class="p">,</span>
+            <span class="n">maxResults</span><span class="o">=</span><span class="mi">5</span>
+        <span class="p">)</span>
+
+        <span class="n">videos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">playlistitems_list_request</span><span class="p">:</span>
+            <span class="n">playlistitems_list_response</span> <span class="o">=</span> <span class="n">playlistitems_list_request</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="c1"># Print information about each video.</span>
+            <span class="k">for</span> <span class="n">playlist_item</span> <span class="ow">in</span> <span class="n">playlistitems_list_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="n">video_title</span> <span class="o">=</span> <span class="n">playlist_item</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+                <span class="n">video_id</span> <span class="o">=</span> <span class="n">playlist_item</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">][</span><span class="s1">&#39;resourceId&#39;</span><span class="p">][</span><span class="s1">&#39;videoId&#39;</span><span class="p">]</span>
+                <span class="n">video_description</span> <span class="o">=</span> <span class="n">playlist_item</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+
+                <span class="n">video</span> <span class="o">=</span> <span class="n">YouTubeVideo</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">)</span>
+                <span class="n">video</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">video_title</span>
+                <span class="n">video</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">video_description</span>
+
+                <span class="n">videos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video</span><span class="p">)</span>
+
+                <span class="n">playlistitems_list_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">playlistItems</span><span class="p">()</span><span class="o">.</span><span class="n">list_next</span><span class="p">(</span>
+                <span class="n">playlistitems_list_request</span><span class="p">,</span> <span class="n">playlistitems_list_response</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">videos</span></div>
+
+<div class="viewcode-block" id="Channel.upload_video"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel.upload_video">[docs]</a>    <span class="k">def</span> <span class="nf">upload_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video</span><span class="p">:</span> <span class="n">LocalVideo</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Uploads video to authorized channel</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">initialize_upload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">video</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Channel.set_video_thumbnail"><a class="viewcode-back" href="../../ref/Channel.html#simple_youtube_api.Channel.Channel.set_video_thumbnail">[docs]</a>    <span class="k">def</span> <span class="nf">set_video_thumbnail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thumbnail_path</span><span class="p">,</span> <span class="n">video</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">video_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Sets thumbnail for video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">video</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">video_id</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">get_video_id</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">thumbnails</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">videoId</span><span class="o">=</span><span class="n">video_id</span><span class="p">,</span>
+            <span class="n">media_body</span><span class="o">=</span><span class="n">thumbnail_path</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Jonne Kaunisto
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

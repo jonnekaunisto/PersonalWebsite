@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simple_youtube_api.Video &mdash; Simple YouTube API 0.0.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Simple YouTube API
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Download and Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/getting_started.html">Getting started with Simple YouTube API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ref/ref.html">Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Simple YouTube API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>simple_youtube_api.Video</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for simple_youtube_api.Video</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">simple_youtube_api</span> <span class="k">import</span> <span class="n">youtube_api</span>
+<span class="kn">from</span> <span class="nn">simple_youtube_api.decorators</span> <span class="k">import</span> <span class="p">(</span><span class="n">video_snippet_set</span><span class="p">,</span> <span class="n">video_status_set</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+
+<span class="c1"># TODO add variables</span>
+<div class="viewcode-block" id="Video"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video">[docs]</a><span class="k">class</span> <span class="nc">Video</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base class for YouTubeVideo and LocalVideo</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    -----------</span>
+
+<span class="sd">    title</span>
+<span class="sd">      The title for the video on YouTube</span>
+
+<span class="sd">    description</span>
+<span class="sd">      The description for the video on YouTube</span>
+
+<span class="sd">    tags</span>
+<span class="sd">      The list of tags for the video on YouTube</span>
+
+<span class="sd">    category</span>
+<span class="sd">      The category for the video on YouTube</span>
+
+<span class="sd">    default_langualage</span>
+<span class="sd">      The default language for the video on YouTube WARNING MIGHT NOT WORK</span>
+<span class="sd">     &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># snippet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">snippet_set</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddable</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">license</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">privacy_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">public_stats_viewable</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_at</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># implement (YYYY-MM-DDThh:mm:ss.sZ) format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status_set</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Video.set_title"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_title">[docs]</a>    <span class="nd">@video_snippet_set</span>
+    <span class="k">def</span> <span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets title for video and returns an exception if title is invalid</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Title must be a string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">MAX_YOUTUBE_TITLE_LENGTH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Title is too long: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span></div>
+
+<div class="viewcode-block" id="Video.get_title"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_title">[docs]</a>    <span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns title of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span></div>
+
+<div class="viewcode-block" id="Video.set_description"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_description">[docs]</a>    <span class="nd">@video_snippet_set</span>
+    <span class="k">def</span> <span class="nf">set_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Sets description for video and returns an exception if description</span>
+<span class="sd">        is invalid</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">description</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Description must be a string&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">description</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">MAX_YOUTUBE_DESCRIPTION_LENGTH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Description is too long: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">description</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div>
+
+<div class="viewcode-block" id="Video.get_description"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns description of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span></div>
+
+<div class="viewcode-block" id="Video.set_tags"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_tags">[docs]</a>    <span class="nd">@video_snippet_set</span>
+    <span class="k">def</span> <span class="nf">set_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="sd">&#39;&#39;&#39;Sets tags to the video and returns an exception if tags are invalid</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Tags must be a list&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tags</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">MAX_YOUTUBE_TAGS_LENGTH</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Tags are too long: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tags</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span></div>
+
+<div class="viewcode-block" id="Video.get_tags"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_tags">[docs]</a>    <span class="k">def</span> <span class="nf">get_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&#39;&#39;&#39; Returns tags of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span></div>
+
+<div class="viewcode-block" id="Video.set_category"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_category">[docs]</a>    <span class="nd">@video_snippet_set</span>
+    <span class="k">def</span> <span class="nf">set_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+        <span class="sd">&#39;&#39;&#39; Sets category for video</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        category</span>
+<span class="sd">          Can either be the name of the category or the category id</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cat_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cat_type</span> <span class="o">==</span> <span class="nb">int</span> \
+           <span class="ow">and</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">YOUTUBE_CATEGORIES_ID_LIST</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span>
+
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> \
+             <span class="ow">and</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">YOUTUBE_CATEGORIES_DICT</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">YOUTUBE_CATEGORIES_DICT</span><span class="p">[</span><span class="n">category</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not a valid category: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">category</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Video.get_category"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_category">[docs]</a>    <span class="k">def</span> <span class="nf">get_category</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns category of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span></div>
+
+<div class="viewcode-block" id="Video.set_default_language"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_default_language">[docs]</a>    <span class="nd">@video_snippet_set</span>
+    <span class="k">def</span> <span class="nf">set_default_language</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Sets default language for video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">language</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Language must be a string&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span> <span class="o">=</span> <span class="n">language</span></div>
+
+<div class="viewcode-block" id="Video.get_default_language"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_default_language">[docs]</a>    <span class="k">def</span> <span class="nf">get_default_language</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns default language of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span></div>
+
+<div class="viewcode-block" id="Video.set_embeddable"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_embeddable">[docs]</a>    <span class="nd">@video_status_set</span>
+    <span class="k">def</span> <span class="nf">set_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embeddable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Specifies if video is embeddable</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">embeddable</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Embeddable must be a boolean&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">embeddable</span> <span class="o">=</span> <span class="n">embeddable</span></div>
+
+<div class="viewcode-block" id="Video.get_embeddable"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_embeddable">[docs]</a>    <span class="k">def</span> <span class="nf">get_embeddable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns if the video is embeddable</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">embeddable</span></div>
+
+<div class="viewcode-block" id="Video.set_license"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_license">[docs]</a>    <span class="nd">@video_status_set</span>
+    <span class="k">def</span> <span class="nf">set_license</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">license</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Specifies license for video either &#39;youtube&#39; or &#39;creativeCommon&#39;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">license</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span> \
+           <span class="ow">and</span> <span class="n">license</span> <span class="ow">in</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">YOUTUBE_LICENCES_LIST</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">license</span> <span class="o">=</span> <span class="n">license</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not a valid license: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">license</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Video.get_license"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_license">[docs]</a>    <span class="k">def</span> <span class="nf">get_license</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns license of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">license</span></div>
+
+<div class="viewcode-block" id="Video.set_privacy_status"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_privacy_status">[docs]</a>    <span class="nd">@video_status_set</span>
+    <span class="k">def</span> <span class="nf">set_privacy_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_status</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Set privacy status, either &#39;private&#39;, &#39;unlisted&#39; or &#39;public</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">privacy_status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">youtube_api</span><span class="o">.</span><span class="n">VALID_PRIVACY_STATUSES</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not valid privacy status: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">privacy_status</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">privacy_status</span> <span class="o">=</span> <span class="n">privacy_status</span></div>
+
+<div class="viewcode-block" id="Video.get_privacy_status"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_privacy_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_privacy_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns privacy status of the video</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">privacy_status</span></div>
+
+<div class="viewcode-block" id="Video.set_public_stats_viewable"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.set_public_stats_viewable">[docs]</a>    <span class="nd">@video_status_set</span>
+    <span class="k">def</span> <span class="nf">set_public_stats_viewable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">viewable</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Specifies if public stats are viewable</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">viewable</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">public_stats_viewable</span> <span class="o">=</span> <span class="n">viewable</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not a valid status: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">viewable</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Video.get_public_stats_viewable"><a class="viewcode-back" href="../../ref/Video.html#simple_youtube_api.Video.Video.get_public_stats_viewable">[docs]</a>    <span class="k">def</span> <span class="nf">get_public_stats_viewable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39; Returns if the video&#39;s public statistics are viewable</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">public_stats_viewable</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Jonne Kaunisto
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
