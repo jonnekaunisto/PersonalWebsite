@@ -1,15 +1,12 @@
+import { Background } from "@/components/general/background";
 import Image from "next/image";
+import Link from "next/link";
 import { FaGithub, FaLinkedin, FaTrophy } from "react-icons/fa";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function Home() {
 	return (
-		<div style={{
-			background: 'linear-gradient(44deg,rgba(137, 98, 163, 1) 0%, rgba(242, 92, 92, 1) 50%, rgba(242, 182, 97, 1) 100%);',
-			backgroundSize: 'cover',
-			backgroundRepeat: 'no-repeat',
-			height: '100vh'
-		}}>
+		<Background>
 			<div id="wrapper" className="h-screen flex items-center justify-center text-black">
 
 				<section className="bg-white p-5 m-50 rounded-lg">
@@ -25,22 +22,22 @@ export default function Home() {
 
 					<footer>
 						<ul className="icons flex justify-center gap-4 mt-4">
-							<a href="https://github.com/jonnekaunisto">
+							<Link href="https://github.com/jonnekaunisto">
 								<FaGithub className="size-7 hover:fill-red-300" />
-							</a>
-							<a href="https://www.linkedin.com/in/jonnekaunisto/">
+							</Link>
+							<Link href="https://www.linkedin.com/in/jonnekaunisto/">
 								<FaLinkedin className="size-7 hover:fill-blue-300" />
-							</a>
-							<a href="achievements.html">
+							</Link>
+							<Link href="achievements">
 								<FaTrophy className="size-7 hover:fill-green-300" />
-							</a>
-							<a href="projects.html">
+							</Link>
+							<Link href="projects">
 								<IoIosInformationCircleOutline className="size-7 hover:fill-purple-300" />
-							</a>
+							</Link>
 						</ul>
 					</footer>
 				</section>
 			</div>
-		</div>
+		</Background>
 	);
 }
