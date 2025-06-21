@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -11,7 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-alumni: "Alumni Sans Pinstripe", sans-serif;
+  --font-alumni: var(--font-alumni-sans-pinstripe);
 }
 
 @media (prefers-color-scheme: dark) {
