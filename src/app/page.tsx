@@ -17,7 +17,7 @@ export default function Home() {
 							<hr className="h-px w-30 bg-gray-300 border-0"></hr>
 						</span>
 						<h1 className="text-5xl text-center font-alumni">Jonne Kaunisto</h1>
-						<p className="text-2xl text-center font-alumni">Software Engineer</p>
+						<p className="text-2xl text-center font-alumni">Software Engineer | Peace Corps Volunteer</p>
 					</header>
 
 					<footer>

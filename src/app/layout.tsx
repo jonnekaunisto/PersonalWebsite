@@ -20,8 +20,8 @@ const alumniSans = Alumni_Sans_Pinstripe({
 });
 
 export const metadata: Metadata = {
-  title: "Jonne Kaunisto",
-  description: "Jonne's personal website",
+  title: "Jonne Kaunisto | Software Engineer & Peace Corps Volunteer",
+  description: "Personal website of Jonne Kaunisto, a software engineer and Peace Corps volunteer in Costa Rica.",
   keywords: "Jonne, Jonne Kaunisto, Kaunisto, jonnekaunisto.com"
 };
 
